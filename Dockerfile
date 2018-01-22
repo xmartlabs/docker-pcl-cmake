@@ -5,4 +5,5 @@ RUN apt-get update && apt-get install -y \
         cmake \
         libpcl-dev \
         libproj-dev \
+	valgrind \
     && rm -rf /var/lib/apt/lists/*
