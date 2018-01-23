@@ -1,47 +1,11 @@
-FROM ubuntu
+FROM ubuntu:16.04
+# Use 16.04 for now, as this issue doesn't happen: https://github.com/PointCloudLibrary/pcl/pull/2100
+# When it's fixed, we could update the version.
 
-WORKDIR /opt
-
-# libproj-dev needed in 16.04: https://stackoverflow.com/a/40034779/1165181 but it shouldn't be needed because now it's compiled from source.
-# Compile from source because of https://github.com/PointCloudLibrary/pcl/issues/2147
-RUN apt-get update && apt-get install -y \
-        build-essential \
-        cmake \
-        freeglut3-dev \
-        git \
-        libboost-all-dev \
-        libeigen3-dev \
-        libfann* \
-        libflann-dev \
-        libgtest-dev \
-        libopenni-dev \
-        libopenni2-dev \
-        libproj-dev \
-        libqhull* \
-        libudev-dev \
-        libusb-1.0-0-dev \
-        libusb-dev \
-        libvtk6-dev \
-        libvtk6-qt-dev \
-        libxi-dev \
-        libxmu-dev \
-        linux-libc-dev \
-        mpi-default-dev \
-        openjdk-8-jdk \
-        openjdk-8-jre \
-        openmpi-bin \
-        openmpi-common \
-        openssh-client \
-        pkg-config \
-        qt-sdk \
-        valgrind \
-    && rm -rf /var/lib/apt/lists/*
-RUN git clone https://github.com/PointCloudLibrary/pcl.git 
-WORKDIR /opt/pcl
-RUN git checkout pcl-1.8.1
-RUN mkdir build
-WORKDIR /opt/pcl/build
-RUN cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_GPU=ON ..
-RUN make -j4
-RUN make -j4 install
-RUN make clean
+# libproj-dev needed in 16.04: https://stackoverflow.com/a/40034779/1165181
+ RUN apt-get update && apt-get install -y \
+          cmake \
+          libpcl-dev \
+          libproj-dev \
+          valgrind \
+      && rm -rf /var/lib/apt/lists/*
