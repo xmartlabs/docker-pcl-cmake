@@ -41,7 +41,7 @@ WORKDIR /opt/pcl
 RUN git checkout pcl-1.8.1
 RUN mkdir build
 WORKDIR /opt/pcl/build
-RUN cmake -DCMAKE_BUILD_TYPE=None -DBUILD_GPU=ON -DBUILD_apps=ON -DBUILD_examples=ON ..
-RUN make -j2
-RUN make -j2 install
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_GPU=ON ..
+RUN make -j4
+RUN make -j4 install
 RUN make clean
